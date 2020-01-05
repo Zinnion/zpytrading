@@ -11,8 +11,8 @@ class ZinnionAPI(object):
         format = "%(asctime)s: %(message)s"
         logging.basicConfig(format=format, level=logging.INFO,datefmt="%H:%M:%S")
         logging.info("Python ZTrading    : Starting threads")
-        logging.info("Python ZTrading    : Token: %s", self.token)
-        logging.info("Python ZTrading    : Account: %s", self.account)
+        logging.info("Python ZTrading    : Token: %s", token)
+        logging.info("Python ZTrading    : Account: %s", account)
 
         self.token = token
         self.account = account
