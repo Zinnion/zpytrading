@@ -1,22 +1,38 @@
+from sys import platform
 import logging
 import threading
 import time
 import zmq
+import sys
+from sys import platform
 from ctypes import cdll
-ztrading_lib = cdll.LoadLibrary(
-    "/home/mauro/zinnion/ztrading/cmake-build-debug/lib/libztrading.so")
+ztrading_lib = cdll.LoadLibrary("zpytrading/libztrading.so")
+
 
 class ZinnionAPI(object):
     def __init__(self, token, account, callback):
+        if platform == "linux" or platform == "linux2":
+            # linux
+            logging.info("Python ZTrading    : LINUX")
+        elif platform == "darwin":
+            # OS X
+            logging.info("Python ZTrading    : platform not supported")
+            sys.exit()
+        elif platform == "win32":
+            # Windows...
+            logging.info("Python ZTrading    : platform not supported")
+            sys.exit()
+
         format = "%(asctime)s: %(message)s"
-        logging.basicConfig(format=format, level=logging.INFO,datefmt="%H:%M:%S")
+        logging.basicConfig(
+            format=format, level=logging.INFO, datefmt="%H:%M:%S")
         logging.info("Python ZTrading    : Starting threads")
         logging.info("Python ZTrading    : Token: %s", token)
         logging.info("Python ZTrading    : Account: %s", account)
 
         self.token = token
         self.account = account
-        
+
         x = threading.Thread(target=self.stream, args=(callback,))
         y = threading.Thread(target=self.zlib_init, args=())
         x.start()
@@ -30,7 +46,7 @@ class ZinnionAPI(object):
         print(ztrading_lib.init(b'Hello World',
                                 b'Hello World', b'trade:COINBASEPRO:BTC-USD'))
 
-    def stream(self,callback):
+    def stream(self, callback):
         logging.info("Python ZTrading    : Stream startup")
         # Prepare our context and publisher
         context = zmq.Context()
