@@ -1,2 +1,0 @@
-# zpytrading
-Python - Zinnion SDK
