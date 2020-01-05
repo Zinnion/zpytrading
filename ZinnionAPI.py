@@ -11,9 +11,16 @@ ztrading_lib = cdll.LoadLibrary("zpytrading/libztrading.so")
 
 class ZinnionAPI(object):
     def __init__(self, token, account, callback):
+        format = "%(asctime)s: %(message)s"
+        logging.basicConfig(
+            format=format, level=logging.INFO, datefmt="%H:%M:%S")
+        logging.info("Python ZTrading    : Starting threads")
+        logging.info("Python ZTrading    : Token: %s", token)
+        logging.info("Python ZTrading    : Account: %s", account)
+
         if platform == "linux" or platform == "linux2":
             # linux
-            logging.info("Python ZTrading    : LINUX")
+            logging.info("Python ZTrading    : Plataform: Linux")
         elif platform == "darwin":
             # OS X
             logging.info("Python ZTrading    : platform not supported")
@@ -22,13 +29,6 @@ class ZinnionAPI(object):
             # Windows...
             logging.info("Python ZTrading    : platform not supported")
             sys.exit()
-
-        format = "%(asctime)s: %(message)s"
-        logging.basicConfig(
-            format=format, level=logging.INFO, datefmt="%H:%M:%S")
-        logging.info("Python ZTrading    : Starting threads")
-        logging.info("Python ZTrading    : Token: %s", token)
-        logging.info("Python ZTrading    : Account: %s", account)
 
         self.token = token
         self.account = account
