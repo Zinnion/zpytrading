@@ -6,7 +6,7 @@ import zmq
 import sys
 from sys import platform
 from ctypes import cdll
-ztrading_lib = cdll.LoadLibrary("zpytrading/libztrading.so")
+import os
 
 
 class ZinnionAPI(object):
@@ -33,6 +33,12 @@ class ZinnionAPI(object):
         self.token = token
         self.account = account
 
+        if 'ZTRADING_LIB' in os.environ:
+            self.ztrading_lib = cdll.LoadLibrary(os.environ['ZTRADING_LIB'])
+        else:
+            logging.error("Python ZTrading    : Please set ZTRADING_LIB")
+            sys.exit()
+
         x = threading.Thread(target=self.stream, args=(callback,))
         y = threading.Thread(target=self.zlib_init, args=())
         x.start()
@@ -43,8 +49,8 @@ class ZinnionAPI(object):
 
     def zlib_init(self):
         logging.info("Python ZTrading    : API startup")
-        print(ztrading_lib.init(b'Hello World',
-                                b'Hello World', b'trade:COINBASEPRO:BTC-USD'))
+        print(self.ztrading_lib.init(b'Hello World',
+                                     b'Hello World', b'trade:COINBASEPRO:BTC-USD'))
 
     def stream(self, callback):
         logging.info("Python ZTrading    : Stream startup")
