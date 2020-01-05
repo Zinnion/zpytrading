@@ -8,11 +8,10 @@ setup(
   author = 'Mauro Delazeri',
   author_email = 'mauro@zinnion.com',
   url = 'https://github.com/Zinnion/zpytrading',
-  download_url = 'https://github.com/Zinnion/zpytrading/archive/ztrading-0_0_1.tar.gz',
+  download_url = 'https://github.com/Zinnion/zpytrading/archive/v0.0.2.tar.gz'
   keywords = ['zpytrading','zinnion','sdk','api'],
   install_requires=[
-          'validators',
-          'beautifulsoup4',
+          'pyzmq',
       ],
   classifiers=[  # Optional
     # How mature is this project? Common values are
