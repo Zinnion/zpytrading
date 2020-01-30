@@ -87,6 +87,15 @@ class ZinnionAPI(object):
             return pandas.DataFrame()
         return pd
 
+    def get_candlestick_buffer(self, venue, product, candle_type, timeframe):
+        self.ztrading_lib.get_candlestick_buffer.restype = ctypes.c_char_p
+        data = self.ztrading_lib.get_candlestick_buffer(
+            bytes(venue, 'utf-8'), bytes(product, 'utf-8'), bytes(candle_type, 'utf-8'), timeframe)
+        pd = pandas.read_json(data)
+        if pd.empty:
+            return pandas.DataFrame()
+        return pd
+
     def get_counter(self):
         self.ztrading_lib.get_counter.restype = ctypes.c_int
         data = self.ztrading_lib.get_counter()
