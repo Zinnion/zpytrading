@@ -118,6 +118,7 @@ class ZinnionAPI(object):
         subscriber.setsockopt(zmq.SUBSCRIBE, b"")
 
         if self.simulation == True:
+            logging.info("Python ZTrading    : SIMULATION MODE")
             self.ztrading_lib.simulation_msg.restype = ctypes.c_bool
             if self.ztrading_lib.simulation_msg(bytes("next::client", 'utf-8')) == False:
                 print("Problem requesting more data from simulation.")
