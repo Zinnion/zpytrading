@@ -13,8 +13,6 @@ class ZinnionAPI(object):
         logging.basicConfig(
             format=format, level=logging.INFO, datefmt="%H:%M:%S")
         logging.info("Python ZTrading    : Starting threads")
-        logging.info("Python ZTrading    : Token: %s", token)
-        logging.info("Python ZTrading    : Account: %s", account)
 
         if sys.platform == "linux" or sys.platform == "linux2":
             # linux
@@ -48,7 +46,7 @@ class ZinnionAPI(object):
 
         logging.info("Python ZTrading    : API startup")
         self.ztrading_lib.init_ztrading.restype = ctypes.c_int
-        if self.ztrading_lib.init_ztrading(bytes(token, 'utf-8'), bytes(account, 'utf-8')) == 1:
+        if self.ztrading_lib.init_ztrading() == 1:
             os.kill(os.getpid(), signal.SIGUSR1)
 
         self.token = token
