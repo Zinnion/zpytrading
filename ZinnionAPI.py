@@ -8,10 +8,13 @@ import pandas
 
 
 class ZinnionAPI(object):
-    def __init__(self, token, account):
+    def __init__(self):
         format = "%(asctime)s: %(message)s"
         logging.basicConfig(
             format=format, level=logging.INFO, datefmt="%H:%M:%S")
+
+        logging.info("Python ZTrading    : Version: 0.0.11")
+
         logging.info("Python ZTrading    : Starting threads")
 
         if sys.platform == "linux" or sys.platform == "linux2":
@@ -48,9 +51,6 @@ class ZinnionAPI(object):
         self.ztrading_lib.init_ztrading.restype = ctypes.c_int
         if self.ztrading_lib.init_ztrading() == 1:
             os.kill(os.getpid(), signal.SIGUSR1)
-
-        self.token = token
-        self.account = account
 
     def add_streaming(self, streaming_config):
         self.ztrading_lib.add_streaming.restype = ctypes.c_bool

@@ -1,1 +1,1 @@
-from zpytrading.ZinnionAPI import  ZinnionAPI
+from zpytrading.ZinnionAPI import ZinnionAPI
