@@ -13,7 +13,7 @@ class ZinnionAPI(object):
         logging.basicConfig(
             format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
-        logging.info("Python ZTrading    : Version: 0.0.11")
+        logging.info("Python ZTrading    : Version: 0.0.12")
 
         logging.info("Python ZTrading    : Starting threads")
 
@@ -27,6 +27,14 @@ class ZinnionAPI(object):
         elif sys.platform == "win32":
             # Windows...
             logging.info("Python ZTrading    : sys.platform not supported")
+            sys.exit()
+
+        if os.getenv("TOKEN") is not None:
+            logging.info("Python ZTrading    : Please set your TOKEN")
+            sys.exit()
+
+        if os.getenv("USER_ID") is not None:
+            logging.info("Python ZTrading    : Please set your USER_ID")
             sys.exit()
 
         if 'ZTRADING_LIB' in os.environ:
