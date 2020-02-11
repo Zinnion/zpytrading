@@ -29,12 +29,12 @@ class ZinnionAPI(object):
             logging.info("Python ZTrading    : sys.platform not supported")
             sys.exit()
 
-        if os.getenv("TOKEN") is not None:
-            logging.info("Python ZTrading    : Please set your TOKEN")
+        if 'USER_ID' not in os.environ:
+            logging.info("Python ZTrading    : USER_ID: not set")
             sys.exit()
 
-        if os.getenv("USER_ID") is not None:
-            logging.info("Python ZTrading    : Please set your USER_ID")
+        if 'TOKEN' not in os.environ:
+            logging.info("Python ZTrading    : TOKEN: not set")
             sys.exit()
 
         if 'ZTRADING_LIB' in os.environ:
