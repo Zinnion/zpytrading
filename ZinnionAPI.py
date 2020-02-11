@@ -5,6 +5,7 @@ import ctypes
 import os
 import signal
 import pandas
+import time
 
 
 class ZinnionAPI(object):
@@ -29,8 +30,8 @@ class ZinnionAPI(object):
             logging.info("Python ZTrading    : sys.platform not supported")
             sys.exit()
 
-        if 'USER_ID' not in os.environ:
-            logging.info("Python ZTrading    : USER_ID: not set")
+        if 'ACCOUNT_ID' not in os.environ:
+            logging.info("Python ZTrading    : ACCOUNT_ID: not set")
             sys.exit()
 
         if 'TOKEN' not in os.environ:
@@ -135,6 +136,7 @@ class ZinnionAPI(object):
             # Request next message if we are in simulation mode
             if self.simulation == True:
                 if 'trade' in msg:
+                    # time.sleep(0.1)
                     self.ztrading_lib.simulation_msg.restype = ctypes.c_bool
                     if self.ztrading_lib.simulation_msg(bytes("next::client", 'utf-8')) == False:
                         print("Problem requesting more data from simulation.")
