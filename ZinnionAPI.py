@@ -13,7 +13,7 @@ class ZinnionAPI(object):
         logging.basicConfig(
             format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
-        logging.info("Python ZTrading    : Version: 0.0.12")
+        logging.info("Python ZTrading    : Version: x.x.x")
 
         logging.info("Python ZTrading    : Starting threads")
 
