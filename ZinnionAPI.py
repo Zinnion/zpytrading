@@ -126,20 +126,20 @@ class ZinnionAPI(object):
 
         if self.simulation == True:
             logging.info("Python ZTrading    : SIMULATION MODE")
-            self.ztrading_lib.simulation_msg.restype = ctypes.c_bool
-            if self.ztrading_lib.simulation_msg(bytes("next::client", 'utf-8')) == False:
-                print("Problem requesting more data from simulation.")
+            self.ztrading_lib.nex_simulation_msg.restype = ctypes.c_bool
+            if self.ztrading_lib.nex_simulation_msg() == False:
+                os.kill(os.getpid(), signal.SIGTERM)
 
         while True:
             # Read envelope with address
             msg = subscriber.recv_json()
             # Request next message if we are in simulation mode
             if self.simulation == True:
-                if 'trade' in msg:
-                    # time.sleep(0.1)
-                    self.ztrading_lib.simulation_msg.restype = ctypes.c_bool
-                    if self.ztrading_lib.simulation_msg(bytes("next::client", 'utf-8')) == False:
-                        print("Problem requesting more data from simulation.")
+                if 'type' in msg:
+                    if msg['type'] == 1 or msg['type'] == 9:
+                        self.ztrading_lib.nex_simulation_msg.restype = ctypes.c_bool
+                        if self.ztrading_lib.nex_simulation_msg() == False:
+                            os.kill(os.getpid(), signal.SIGTERM)
 
             # Handle the data received
             self.hand_data(callback, msg)
