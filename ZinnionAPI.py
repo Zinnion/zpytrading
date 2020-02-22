@@ -30,8 +30,8 @@ class ZinnionAPI(object):
             logging.info("Python ZTrading    : sys.platform not supported")
             sys.exit()
 
-        if 'ACCOUNT_ID' not in os.environ:
-            logging.info("Python ZTrading    : ACCOUNT_ID: not set")
+        if 'TERMINAL_ID' not in os.environ:
+            logging.info("Python ZTrading    : TERMINAL_ID: not set")
             sys.exit()
 
         if 'TOKEN' not in os.environ:
@@ -136,7 +136,7 @@ class ZinnionAPI(object):
             # Request next message if we are in simulation mode
             if self.simulation == True:
                 if 'type' in msg:
-                    if msg['type'] == 1 or msg['type'] == 9:
+                    if msg['type'] == 1 or msg['type'] == 7:
                         self.ztrading_lib.nex_simulation_msg.restype = ctypes.c_bool
                         if self.ztrading_lib.nex_simulation_msg() == False:
                             os.kill(os.getpid(), signal.SIGTERM)
