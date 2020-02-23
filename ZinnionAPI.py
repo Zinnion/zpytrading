@@ -30,8 +30,8 @@ class ZinnionAPI(object):
             logging.info("Python ZTrading    : sys.platform not supported")
             sys.exit()
 
-        if 'TERMINAL_ID' not in os.environ:
-            logging.info("Python ZTrading    : TERMINAL_ID: not set")
+        if 'SIMULATION_ID' not in os.environ:
+            logging.info("Python ZTrading    : SIMULATION_ID: not set")
             sys.exit()
 
         if 'TOKEN' not in os.environ:
